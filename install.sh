@@ -29,6 +29,7 @@ done
 
 echo -e "Changed hostname to ${RED}${HOSTNAME}${WHITE}"
 
+USERNAME=`sed -e 's/\.//g' <<<$HOSTNAME`
 
 echo -e "${BLUE}Hostname set to ${HOSTNAME} ${WHITE}"
 echo -e "${BLUE}Username set to ${USERNAME} ${WHITE}";
