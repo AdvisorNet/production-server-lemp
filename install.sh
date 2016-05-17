@@ -21,9 +21,13 @@ USERNAME=`sed -e 's/\.//g' <<<$HOSTNAME`
 echo -e "${BLUE}Hostname set to ${HOSTNAME} ${WHITE}"
 echo -e "${BLUE}Username set to ${USERNAME} ${WHITE}";
 
+#Set the timezone
+rm -f /etc/localtime
+ln -s /usr/share/zoneinfo/UTC /etc/localtime
+
 # Install required software
 apt-get update
-apt-get install -y php5-fpm nginx php5 php5-gd git
+apt-get install -y php5-fpm nginx php5 php5-gd git ntp
 
 # Install and configure mysql
 printf "${RED}Setting SQLROOTPASSWD to ${SQLROOTPASSWD}${WHITE}"
