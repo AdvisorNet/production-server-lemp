@@ -15,8 +15,20 @@ DRUPALDATABASE='drupal'
 DRUPALUSERNAME='drupal'
 HOSTNAME=`hostname`
 USERNAME=`sed -e 's/\.//g' <<<$HOSTNAME`
-
+HOSTSNAME='/etc/hosts'
 ## START OF CODE ##
+
+HOSTS=`cat ${HOSTSNAME} | grep -v "^#" | grep -v "^127" | cut -f2 -d$'\t'`
+IFS=' ' read -a HOST <<< "${HOSTS}"
+for i in "${HOST[@]}"
+do
+        if [[ "${i}" == *\.* ]]; then
+            HOSTNAME=${i}
+        fi
+done
+
+echo -e "Changed hostname to ${RED}${HOSTNAME}${WHITE}"
+
 
 echo -e "${BLUE}Hostname set to ${HOSTNAME} ${WHITE}"
 echo -e "${BLUE}Username set to ${USERNAME} ${WHITE}";
