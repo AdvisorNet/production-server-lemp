@@ -127,15 +127,15 @@ SQL="${CMD1}${CMD2}${CMD3}${CMD4}"
 #### TEST PASSWORD IS t0bAeV0VnW0o
 
 # Install Drupal
-# apt-get install -y drush
-# cd /var/www/vhosts/${HOSTNAME}
-# drush dl drupal-8
-# DRUPALDIR=`ls | grep drupal`
-# mv ${DRUPALDIR}/* .
-# rm -fr ${DRUPALDIR}
-# cd sites/default
-# cp default.settings.php settings.php
-# cp default.services.yml services.yml
+apt-get install -y drush
+cd /var/www/vhosts/${HOSTNAME}
+drush dl drupal-8
+DRUPALDIR=`ls | grep drupal`
+mv ${DRUPALDIR}/* .
+rm -fr ${DRUPALDIR}
+cd sites/default
+cp default.settings.php settings.php
+cp default.services.yml services.yml
 # Set ownership on the web folder
 chown -R ${USERNAME}.www-data ${HOSTPATH}/${HOSTNAME}
 
