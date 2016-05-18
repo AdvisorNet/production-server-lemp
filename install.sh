@@ -13,19 +13,22 @@ NGINXPATH='/etc/nginx/sites-available'
 MYSQL=`which mysql`
 DRUPALDATABASE='drupal'
 DRUPALUSERNAME='drupal'
-HOSTNAME=`hostname`
-USERNAME=`sed -e 's/\.//g' <<<$HOSTNAME`
 HOSTSNAME='/etc/hosts'
-## START OF CODE ##
 
-HOSTS=`cat ${HOSTSNAME} | grep -v "^#" | grep -v "^127" | cut -f2 -d$'\t'`
-IFS=' ' read -a HOST <<< "${HOSTS}"
-for i in "${HOST[@]}"
-do
-        if [[ "${i}" == *\.* ]]; then
-            HOSTNAME=${i}
-        fi
-done
+## START OF CODE ##
+if ! [[ "${HOSTNAME}" == *\.* ]]; then
+        HOSTS=`cat ${HOSTSNAME} | grep -v "^#" | grep -v "^127\.0\.0\.1" | cut -f2 -d$'\t'`
+        IFS=' ' read -a HOST <<< "${HOSTS}"
+        for i in "${HOST[@]}"
+        do
+                if [[ "${i}" == *\.* ]]; then
+                        HOSTNAME=${i}
+                fi
+        done
+fi
+
+# Set Username based on hostname
+USERNAME=`sed -e 's/\.//g' <<<$HOSTNAME`
 
 echo -e "Changed hostname to ${RED}${HOSTNAME}${WHITE}"
 
